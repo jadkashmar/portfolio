@@ -1,10 +1,20 @@
 import { motion } from 'motion/react'
-import { ArrowUpRight, EnvelopeSimple, LinkedinLogo, Phone } from '@phosphor-icons/react'
+import { ArrowUpRight, EnvelopeSimple, FilePdf, LinkedinLogo, Phone } from '@phosphor-icons/react'
 import { contact } from '../data/resume'
 import { Reveal } from './ui/Reveal'
 import { WordReveal } from './ui/WordReveal'
 
-const channels = [
+type Channel = {
+  label: string
+  value: string
+  href: string
+  Icon: typeof EnvelopeSimple
+  external: boolean
+  /** Suggested filename for a save-as download, instead of navigating. */
+  download?: string
+}
+
+const channels: Channel[] = [
   {
     label: 'Email',
     value: contact.email,
@@ -25,6 +35,14 @@ const channels = [
     href: contact.linkedin,
     Icon: LinkedinLogo,
     external: true,
+  },
+  {
+    label: 'Resume',
+    value: 'Download CV (PDF)',
+    href: contact.resumeUrl,
+    Icon: FilePdf,
+    external: false,
+    download: 'Jad-Kashmar-CV.pdf',
   },
 ]
 
@@ -59,12 +77,13 @@ export function Contact() {
 
         <div className="lg:col-span-5 lg:pt-4">
           <Reveal stagger=".channel" y={20}>
-            {channels.map(({ label, value, href, Icon, external }) => (
+            {channels.map(({ label, value, href, Icon, external, download }) => (
               <motion.a
                 key={label}
                 href={href}
                 target={external ? '_blank' : undefined}
                 rel={external ? 'noreferrer' : undefined}
+                download={download}
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
                 className="channel group flex items-center gap-5 border-t border-line-strong py-6 last:border-b"
