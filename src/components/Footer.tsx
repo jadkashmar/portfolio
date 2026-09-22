@@ -31,11 +31,9 @@ export function Footer() {
           </ul>
         </nav>
 
-        {/* Redundant with the floating BackToTopButton on mobile, so this
-            stays a desktop-only convenience within easy mouse reach. */}
         <a
           href="#home"
-          className="group hidden items-center gap-2 font-mono text-[11px] tracking-[0.12em] text-muted uppercase transition-colors duration-200 hover:text-accent md:inline-flex"
+          className="group inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.12em] text-muted uppercase transition-colors duration-200 hover:text-accent"
         >
           Back to top
           <ArrowUp

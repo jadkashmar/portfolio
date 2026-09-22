@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import { ArrowUpRight, EnvelopeSimple, FilePdf, GithubLogo, LinkedinLogo, Phone } from '@phosphor-icons/react'
+import { ArrowUpRight, EnvelopeSimple, FilePdf, GithubLogo, LinkedinLogo } from '@phosphor-icons/react'
 import { contact } from '../data/resume'
 import { Reveal } from './ui/Reveal'
 import { WordReveal } from './ui/WordReveal'
@@ -23,13 +23,6 @@ const channels: Channel[] = [
     value: contact.email,
     href: `mailto:${contact.email}`,
     Icon: EnvelopeSimple,
-    external: false,
-  },
-  {
-    label: 'Phone',
-    value: contact.phone,
-    href: `tel:${contact.phone.replace(/\s+/g, '')}`,
-    Icon: Phone,
     external: false,
   },
   {
