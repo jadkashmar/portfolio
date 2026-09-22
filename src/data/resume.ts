@@ -55,6 +55,7 @@ export const contact = {
   phone: '+961 81828105',
   // Canonical profile URL, without the share-link tracking params (utm_source, etc.)
   linkedin: 'https://www.linkedin.com/in/jad-kashmar-1980a13b0',
+  github: 'https://github.com/jadkashmar',
   location: 'Byblos / Jbeil area, Lebanon',
   resumeUrl: '/Jad-Kashmar-CV.pdf',
 }

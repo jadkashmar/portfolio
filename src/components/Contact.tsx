@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import { ArrowUpRight, EnvelopeSimple, FilePdf, LinkedinLogo, Phone } from '@phosphor-icons/react'
+import { ArrowUpRight, EnvelopeSimple, FilePdf, GithubLogo, LinkedinLogo, Phone } from '@phosphor-icons/react'
 import { contact } from '../data/resume'
 import { Reveal } from './ui/Reveal'
 import { WordReveal } from './ui/WordReveal'
@@ -28,6 +28,13 @@ const channels: Channel[] = [
     href: `tel:${contact.phone.replace(/\s+/g, '')}`,
     Icon: Phone,
     external: false,
+  },
+  {
+    label: 'GitHub',
+    value: 'jadkashmar',
+    href: contact.github,
+    Icon: GithubLogo,
+    external: true,
   },
   {
     label: 'LinkedIn',
