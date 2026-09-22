@@ -53,7 +53,6 @@ export const skillCategories: SkillCategory[] = [
 export const contact = {
   email: 'jad.kashmar@gmail.com',
   phone: '+961 81828105',
-  // TODO(jad): paste your real LinkedIn profile URL here
-  linkedin: 'https://www.linkedin.com/in/your-profile-here',
+  linkedin: 'https://lb.linkedin.com/in/jad-kashmar-1980a13b0',
   location: 'Byblos / Jbeil area, Lebanon',
 }

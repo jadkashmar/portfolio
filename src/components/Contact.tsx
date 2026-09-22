@@ -21,7 +21,7 @@ const channels = [
   },
   {
     label: 'LinkedIn',
-    value: 'in/jad-kashmar',
+    value: 'in/jad-kashmar-1980a13b0',
     href: contact.linkedin,
     Icon: LinkedinLogo,
     external: true,
