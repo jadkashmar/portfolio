@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@450;500&display=swap');
+@import 'tailwindcss';
+
+/*
+  Design language: Crimson & Charcoal. Charcoal surfaces, white ink, one crimson accent.
+  Single dark theme (no prefers-color-scheme switch). Radius stays sharp (2px).
+*/
+
+:root {
+  /* Surfaces: charcoal page, darker charcoal for cards and nested content */
+  --paper: #2b2b2b;
+  --surface: #1a1a1a;
+  --surface-sunk: #151515;
+
+  /* Ink: white primary, gray tiers for secondary and meta text */
+  --ink: #ffffff;
+  --muted: #cccccc;
+  --faint: #888888;
+
+  --line: #3a3a3a;
+  --line-strong: #444444;
+
+  /* Single locked accent: crimson */
+  --accent: #dc143c;
+  --accent-hover: #bb0028;
+  --accent-active: #a00022;
+  --accent-ink: #ffffff;
+
+  /* Lightbox scrim: dark, with light chrome sitting on it. */
+  --scrim: rgba(12, 12, 12, 0.95);
+  --scrim-fg: #f4f4f2;
+  --scrim-surface: rgba(255, 255, 255, 0.1);
+  --scrim-border: rgba(255, 255, 255, 0.22);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+
+  --radius: 2px;
+
+  /* Documented z-index scale: nothing arbitrary */
+  --z-field: 0;
+  --z-nav: 50;
+  --z-overlay: 90;
+  --z-modal: 100;
+  --z-grain: 200;
+}
+
+@theme inline {
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-sunk: var(--surface-sunk);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-active: var(--accent-active);
+  --color-accent-ink: var(--accent-ink);
+
+  --radius-sharp: var(--radius);
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: 'ss01' 1;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Data and numerals stay aligned in a technical layout */
+  .font-mono,
+  table,
+  time {
+    font-variant-numeric: tabular-nums;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: var(--radius);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    /* Belt-and-braces: the canvas's own JS also pauses and redraws statically. */
+    .name-hero__name,
+    .contour-field {
+      animation: none !important;
+    }
+  }
+}
+
+@layer components {
+  /* Skip link: keyboard users land on content without tabbing the whole nav */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: var(--z-modal);
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius);
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: top 200ms ease;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  /* Small technical label. Used sparingly, never above every section. */
+  .label {
+    font-family: 'Geist Mono', ui-monospace, monospace;
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  /* Underline that draws from the left on hover */
+  .link-draw {
+    position: relative;
+  }
+  .link-draw::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 0;
+    background: currentColor;
+    transition: width 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .link-draw:hover::after,
+  .link-draw:focus-visible::after {
+    width: 100%;
+  }
+
+  /* Hero name: arrives once on load, then stays put. DM Sans instead of the
+     site's Geist, kept scoped to this element so the rest of the type system
+     is untouched. */
+  .name-hero__name {
+    max-width: 100%;
+    font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(3.25rem, 11.6vw, 12rem);
+    font-weight: 450;
+    line-height: 1.05;
+    letter-spacing: -0.065em;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+    text-shadow: 0 4px 55px color-mix(in srgb, var(--paper) 90%, transparent);
+    -webkit-font-smoothing: antialiased;
+    animation: name-arrive 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  /* Page-wide cursor-reactive backdrop (ContourField), fixed behind every
+     section. Fades in once on load. */
+  .contour-field {
+    animation: field-arrive 2.2s ease-out both;
+  }
+}
+
+@keyframes name-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+@keyframes field-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Measure cap for readable prose */
+  .measure {
+    max-width: 65ch;
+  }
+
+  /* Hairline blueprint grid, sits behind content */
+  .blueprint {
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 96px 96px;
+  }
+}
