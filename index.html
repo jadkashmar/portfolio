@@ -38,6 +38,39 @@
     />
     <meta name="twitter:image" content="https://jadkashmar.dev/og-image.png" />
 
+    <!-- Structured data: tells Google this page is a specific person, and links the
+         canonical profiles (sameAs) so a search for "Jad Kashmar" can surface a
+         knowledge panel / rich result instead of a plain blue link. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Jad Kashmar",
+        "url": "https://jadkashmar.dev/",
+        "image": "https://jadkashmar.dev/og-image.png",
+        "jobTitle": "Computer Engineer",
+        "description": "Full-stack web developer and Computer Engineering student at Lebanese American University, building data-driven React applications and designing digital hardware systems.",
+        "email": "mailto:jad.kashmar@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Byblos",
+          "addressCountry": "LB"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Lebanese American University"
+        },
+        "sameAs": ["https://github.com/jadkashmar", "https://www.linkedin.com/in/jad-kashmar-1980a13b0"]
+      }
+    </script>
+
+    <!-- TODO(jad): after verifying the property at search.google.com/search-console,
+         choose the "HTML tag" method, copy the content value it gives you into this
+         tag, then uncomment. This is the fastest way to get Search Console to
+         recognize the site and let you request indexing / submit the sitemap.
+    <meta name="google-site-verification" content="PASTE_VERIFICATION_CODE_HERE" />
+    -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
