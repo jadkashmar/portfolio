@@ -1,9 +1,10 @@
 import { motion } from 'motion/react'
 import { skillCategories } from '../data/resume'
-import { Reveal } from './ui/Reveal'
 import { WordReveal } from './ui/WordReveal'
 import { DrawLine } from './ui/DrawLine'
 import { useReducedMotion } from '../hooks/useReducedMotion'
+
+const ease = [0.16, 1, 0.3, 1] as const
 
 export function Skills() {
   const reducedMotion = useReducedMotion()
@@ -12,10 +13,14 @@ export function Skills() {
       <div className="mx-auto max-w-[1400px]">
         <WordReveal text="What I work with" className="max-w-[16ch] text-[clamp(2rem,5vw,4rem)] leading-[1.05] font-medium tracking-[-0.035em] text-balance text-ink" />
 
-        <Reveal stagger=".skill-row" y={28} className="mt-16">
+        <div className="mt-16">
           {skillCategories.map((category, index) => (
-            <div
+            <motion.div
               key={category.title}
+              initial={reducedMotion ? false : { opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '0px 0px -12% 0px' }}
+              transition={{ duration: 0.8, delay: index * 0.12, ease }}
               className="skill-row relative grid gap-5 py-8 lg:grid-cols-12 lg:gap-8"
             >
               <DrawLine />
@@ -41,9 +46,9 @@ export function Skills() {
                   </motion.li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           ))}
-        </Reveal>
+        </div>
       </div>
     </section>
   )

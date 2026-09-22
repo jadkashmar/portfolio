@@ -1,67 +1,45 @@
-import { useEffect, useRef, type ReactNode } from 'react'
-import { ensureGsapRegistered, gsap } from '../../lib/gsap'
+import { motion } from 'motion/react'
+import type { ReactNode } from 'react'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
+
+const ease = [0.16, 1, 0.3, 1] as const
 
 type RevealProps = {
   children: ReactNode
   className?: string
-  /** CSS selector (relative to the container) for items to stagger. Defaults to direct children. */
-  stagger?: string
   as?: 'div' | 'section'
   y?: number
   duration?: number
   delay?: number
-  start?: string
 }
 
-export function Reveal({
-  children,
-  className,
-  stagger,
-  as = 'div',
-  y = 40,
-  duration = 0.8,
-  delay = 0,
-  start = 'top 82%',
-}: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null)
+/*
+ * Block-level scroll reveal: fades/slides the whole wrapper up once, the
+ * first time it enters the viewport. For a staggered list of items, animate
+ * each item directly with its own `whileInView` and an index-based delay
+ * instead (see Skills.tsx, Contact.tsx, BeyondTheCode.tsx, Projects.tsx) -
+ * that's a plain Motion pattern with no separate stagger API to learn here.
+ *
+ * `once: true` matches WordReveal/DrawLine elsewhere on the site: content
+ * stays revealed once shown, it doesn't fade back out scrolling past it again.
+ */
+export function Reveal({ children, className, as = 'div', y = 40, duration = 0.8, delay = 0 }: RevealProps) {
   const reducedMotion = useReducedMotion()
+  const Component = motion[as]
 
-  useEffect(() => {
-    if (!ref.current) return
-    if (reducedMotion) return
+  if (reducedMotion) {
+    const Static = as
+    return <Static className={className}>{children}</Static>
+  }
 
-    ensureGsapRegistered()
-
-    const targets = stagger
-      ? ref.current.querySelectorAll(stagger)
-      : (Array.from(ref.current.children) as Element[])
-
-    const items = targets.length > 0 ? targets : [ref.current]
-
-    const ctx = gsap.context(() => {
-      gsap.set(items, { opacity: 0, y })
-      gsap.to(items, {
-        opacity: 1,
-        y: 0,
-        duration,
-        delay,
-        ease: 'power3.out',
-        stagger: items.length > 1 ? 0.12 : 0,
-        scrollTrigger: {
-          trigger: ref.current,
-          start,
-          toggleActions: 'play none none reverse',
-        },
-      })
-    }, ref)
-
-    return () => ctx.revert()
-  }, [reducedMotion, stagger, y, duration, delay, start])
-
-  const Component = as
   return (
-    <Component ref={ref as never} className={className}>
+    <Component
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '0px 0px -12% 0px' }}
+      transition={{ duration, delay, ease }}
+      className={className}
+    >
       {children}
     </Component>
   )

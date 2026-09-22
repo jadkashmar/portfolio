@@ -1,6 +1,9 @@
 import { motion } from 'motion/react'
 import { beyondTheCode } from '../data/beyondTheCode'
 import { Reveal } from './ui/Reveal'
+import { useReducedMotion } from '../hooks/useReducedMotion'
+
+const ease = [0.16, 1, 0.3, 1] as const
 
 const kindLabels: Record<string, string> = {
   work: 'Work',
@@ -18,6 +21,7 @@ const placements = [
 ]
 
 export function BeyondTheCode() {
+  const reducedMotion = useReducedMotion()
   return (
     <section id="beyond" className="relative px-6 py-28 sm:px-10 lg:px-16 lg:py-40">
       <div className="mx-auto max-w-[1400px]">
@@ -27,12 +31,15 @@ export function BeyondTheCode() {
           </h2>
         </Reveal>
 
-        <Reveal stagger=".beyond-item" y={32} className="mt-20 grid gap-14 lg:grid-cols-12 lg:gap-x-12">
+        <div className="mt-20 grid gap-14 lg:grid-cols-12 lg:gap-x-12">
           {beyondTheCode.map((entry, index) => (
             <motion.article
               key={entry.title}
-              whileHover={{ x: 6 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
+              initial={reducedMotion ? false : { opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '0px 0px -12% 0px' }}
+              whileHover={{ x: 6, transition: { duration: 0.25, ease: 'easeOut' } }}
+              transition={{ duration: 0.8, delay: index * 0.12, ease }}
               className={`beyond-item group ${placements[index] ?? 'lg:col-span-6'}`}
             >
               <div className="flex items-start gap-6">
@@ -57,7 +64,7 @@ export function BeyondTheCode() {
               </div>
             </motion.article>
           ))}
-        </Reveal>
+        </div>
       </div>
     </section>
   )
