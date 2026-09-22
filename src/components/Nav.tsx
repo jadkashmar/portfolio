@@ -67,51 +67,64 @@ export function Nav() {
     <>
       <div ref={sentinelRef} aria-hidden="true" className="absolute top-0 h-px w-full" />
 
-      <header
-        className={`fixed inset-x-0 top-0 z-[50] transition-colors duration-300 ${
-          scrolled ? 'border-b border-line bg-paper/90 backdrop-blur-md' : 'border-b border-transparent'
-        }`}
-      >
-        <nav
-          aria-label="Primary"
-          className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6 sm:px-10 lg:px-16"
+      {/*
+        The blur/background live on the inner div, not <header> itself.
+        backdrop-filter (and filter/transform) establish a new containing
+        block for `position: fixed` descendants - if it sat on <header>,
+        the fixed full-screen mobile menu below would size itself against
+        the header's own ~64px box instead of the viewport the moment the
+        page is scrolled (bg-paper/90 + backdrop-blur-md only apply once
+        `scrolled` is true), collapsing it to a sliver. Keeping <header>
+        itself filter-free keeps its fixed children anchored to the
+        viewport, matching every other fixed overlay on the site.
+      */}
+      <header className="fixed inset-x-0 top-0 z-[50]">
+        <div
+          className={`transition-colors duration-300 ${
+            scrolled ? 'border-b border-line bg-paper/90 backdrop-blur-md' : 'border-b border-transparent'
+          }`}
         >
-          <a
-            href="#home"
-            className="font-mono text-sm font-medium tracking-[0.12em] text-ink transition-colors duration-200 hover:text-accent"
+          <nav
+            aria-label="Primary"
+            className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6 sm:px-10 lg:px-16"
           >
-            JK<span className="text-accent">/</span>
-          </a>
+            <a
+              href="#home"
+              className="font-mono text-sm font-medium tracking-[0.12em] text-ink transition-colors duration-200 hover:text-accent"
+            >
+              JK<span className="text-accent">/</span>
+            </a>
 
-          <ul className="hidden items-center gap-9 md:flex">
-            {links.map((link) => {
-              const isActive = active === link.href
-              return (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    aria-current={isActive ? 'true' : undefined}
-                    className={`link-draw font-mono text-[11px] tracking-[0.14em] uppercase transition-colors duration-200 ${
-                      isActive ? 'text-accent' : 'text-muted hover:text-ink'
-                    }`}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              )
-            })}
-          </ul>
+            <ul className="hidden items-center gap-9 md:flex">
+              {links.map((link) => {
+                const isActive = active === link.href
+                return (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      aria-current={isActive ? 'true' : undefined}
+                      className={`link-draw font-mono text-[11px] tracking-[0.14em] uppercase transition-colors duration-200 ${
+                        isActive ? 'text-accent' : 'text-muted hover:text-ink'
+                      }`}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
 
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            className="relative z-10 -mr-2 p-2 text-ink transition-colors duration-200 hover:text-accent md:hidden"
-            aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
-            aria-expanded={open}
-          >
-            {open ? <X size={22} weight="bold" /> : <List size={22} weight="bold" />}
-          </button>
-        </nav>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className="relative z-10 -mr-2 p-2 text-ink transition-colors duration-200 hover:text-accent md:hidden"
+              aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={open}
+            >
+              {open ? <X size={22} weight="bold" /> : <List size={22} weight="bold" />}
+            </button>
+          </nav>
+        </div>
 
         <AnimatePresence>
           {open && (

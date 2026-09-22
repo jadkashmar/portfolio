@@ -8,6 +8,7 @@ import { Contact } from './components/Contact'
 import { Footer } from './components/Footer'
 import { ScrollProgress } from './components/ui/ScrollProgress'
 import { ContourField } from './components/ui/ContourField'
+import { BackToTopButton } from './components/ui/BackToTopButton'
 
 // Fixed, non-scrolling grain layer. Kept off scrolling containers so it never
 // forces continuous GPU repaints.
@@ -36,6 +37,7 @@ function App() {
       </main>
 
       <Footer />
+      <BackToTopButton />
 
       <div
         aria-hidden="true"
