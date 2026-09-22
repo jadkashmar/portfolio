@@ -1,6 +1,6 @@
 import { motion } from 'motion/react'
 import { beyondTheCode } from '../data/beyondTheCode'
-import { Reveal } from './ui/Reveal'
+import { ClipReveal } from './ui/ClipReveal'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 
 const ease = [0.16, 1, 0.3, 1] as const
@@ -25,11 +25,11 @@ export function BeyondTheCode() {
   return (
     <section id="beyond" className="relative px-6 py-28 sm:px-10 lg:px-16 lg:py-40">
       <div className="mx-auto max-w-[1400px]">
-        <Reveal>
+        <ClipReveal as="div" direction="up">
           <h2 className="max-w-[18ch] text-[clamp(2rem,5vw,4rem)] leading-[1.05] font-medium tracking-[-0.035em] text-balance text-ink">
             Who I am outside the editor
           </h2>
-        </Reveal>
+        </ClipReveal>
 
         <div className="mt-20 grid gap-14 lg:grid-cols-12 lg:gap-x-12">
           {beyondTheCode.map((entry, index) => (

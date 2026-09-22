@@ -1,5 +1,6 @@
 import { personal, education, spokenLanguages } from '../data/resume'
 import { Reveal } from './ui/Reveal'
+import { ClipReveal } from './ui/ClipReveal'
 
 // The summary is typeset with hierarchy rather than rewritten: the opening
 // sentence carries at display size, the remainder reads as body copy.
@@ -13,11 +14,11 @@ export function About() {
       <div className="mx-auto max-w-[1400px]">
         <h2 className="sr-only">About</h2>
 
-        <Reveal>
+        <ClipReveal as="div" direction="up">
           <p className="max-w-[20ch] text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.12] font-medium tracking-[-0.03em] text-balance text-ink">
             {lead}
           </p>
-        </Reveal>
+        </ClipReveal>
 
         <div className="mt-16 grid gap-14 lg:grid-cols-12 lg:gap-12">
           <Reveal className="lg:col-span-7">

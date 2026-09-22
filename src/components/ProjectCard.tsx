@@ -3,6 +3,7 @@ import { motion } from 'motion/react'
 import { ArrowUpRight, FilePdf, GithubLogo, Images } from '@phosphor-icons/react'
 import type { Project } from '../data/projects'
 import { useTilt } from '../hooks/useTilt'
+import { ClipReveal } from './ui/ClipReveal'
 
 type ProjectCardProps = {
   project: Project
@@ -35,6 +36,7 @@ export function ProjectCard({ project, onOpen, featured = false }: ProjectCardPr
         className={`group flex h-full flex-col ${featured ? 'lg:grid lg:grid-cols-12 lg:gap-12' : ''}`}
       >
         <div className={featured ? 'lg:col-span-7' : ''}>
+          <ClipReveal direction="left" className="block">
           <motion.div
             role={hasGallery ? 'button' : undefined}
             tabIndex={hasGallery ? 0 : undefined}
@@ -104,6 +106,7 @@ export function ProjectCard({ project, onOpen, featured = false }: ProjectCardPr
             </motion.span>
           )}
         </motion.div>
+          </ClipReveal>
       </div>
 
         {/* Copy sits on its own depth layer so it separates from the media as

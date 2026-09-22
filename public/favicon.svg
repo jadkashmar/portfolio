@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
   <!-- Matches the site's nav wordmark: charcoal tile, white "JK", crimson accent slash. -->
   <rect width="48" height="48" rx="3" fill="#2b2b2b"/>
-  <text x="41%" y="54%" text-anchor="middle" dominant-baseline="middle" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-weight="600" font-size="19" letter-spacing="0.5" fill="#ffffff">JK</text>
-  <text x="82%" y="54%" text-anchor="middle" dominant-baseline="middle" font-family="ui-monospace, 'Geist Mono', Menlo, Consolas, monospace" font-weight="600" font-size="19" fill="#dc143c">/</text>
+  <text x="41%" y="54%" text-anchor="middle" dominant-baseline="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace" font-weight="600" font-size="19" letter-spacing="0.5" fill="#ffffff">JK</text>
+  <text x="82%" y="54%" text-anchor="middle" dominant-baseline="middle" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace" font-weight="600" font-size="19" fill="#dc143c">/</text>
 </svg>
