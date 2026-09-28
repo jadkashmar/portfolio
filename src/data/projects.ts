@@ -63,7 +63,7 @@ export const projects: Project[] = [
       { src: '/projects/sector-seven/screenshot-19.png', caption: 'Session results' },
       { src: '/projects/sector-seven/screenshot-20.png', caption: 'Session results, full classification' },
     ],
-    liveUrl: '#',
+    liveUrl: 'https://sectorseven.jadkashmar.dev/',
     githubUrl: 'https://github.com/jadkashmar/SectorSeven',
   },
   {
