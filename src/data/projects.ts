@@ -32,6 +32,26 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: 'coursemap',
+    title: 'CourseMap',
+    category: 'software',
+    stackSummary: 'Interactive Degree Planner',
+    stack: ['TypeScript', 'Next.js', 'React 19', 'Python', 'PostgreSQL'],
+    description:
+      "Turns a university course-map PDF into an interactive degree planner. Mark courses with grades, see what each one unlocks on the prerequisite diagram, plan the remaining semesters toward a goal with the critical path that sets the graduation date, and get answers about GPA, standing and graduation worked out from the map and LAU's catalog rules, with no AI involved. A Python importer (FastAPI, PyMuPDF) reads a PDF's vector diagram or catalog table into a draft map for review, and accounts sync progress across devices. Unit-tested with Vitest, with Playwright and axe end-to-end checks against WCAG 2.2 AA in light and dark.",
+    image: '/projects/coursemap.png',
+    gallery: [
+      { src: '/projects/coursemap/screenshot-01.png', caption: 'Landing page' },
+      { src: '/projects/coursemap/screenshot-02.png', caption: 'Course map with prerequisites, course details open' },
+      { src: '/projects/coursemap/screenshot-03.png', caption: 'Guidance, computed answers about your degree' },
+      { src: '/projects/coursemap/screenshot-04.png', caption: 'Semester plan toward graduation, dark mode' },
+      { src: '/projects/coursemap/screenshot-05.png', caption: 'PDF importer, draft map with items to check' },
+    ],
+    liveUrl: 'https://coursemap.jadkashmar.dev',
+    // Source repo is private, so no public GitHub link.
+    githubUrl: null,
+  },
+  {
     slug: 'sector-seven',
     title: 'Sector Seven',
     category: 'software',
